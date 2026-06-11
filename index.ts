@@ -21,7 +21,7 @@ const domainHandler = async (req: BunRequest) => {
 			domainString += `${customDomain} {\n reverse_proxy https://${generatedDomain} {\n  header_up Host ${generatedDomain}\n }\n}\n\n`;
 		})
 		Bun.write("Caddyfile", emailRecord + "\n" + domainString);
-		const proc = await $`docker restart ${containerName}`.quiet();
+		const proc = await $`docker exec caddy-dns caddy reload --config /etc/caddy/Caddyfile`;
 
 		if (proc.exitCode !== 0) throw new Error(proc.stderr.toString())
 
