@@ -1,9 +1,8 @@
 import type { BunRequest } from "bun";
-import { $ } from "bun";
 
 //env
 const email = process.env.SSL_EMAIL!;
-const containerName = process.env.CONTAINER_NAME!;
+const syncSecret = process.env.SYNC_SECRET!;
 
 type DomainMapping = {
 	customDomain: string;
@@ -11,6 +10,10 @@ type DomainMapping = {
 }
 
 const domainHandler = async (req: BunRequest) => {
+	const auth = req.headers.get("Authorization");
+	if (auth !== `Bearer ${syncSecret}`) {
+		return new Response("Unauthorized", { status: 401 });
+	}
 	try {
 		const { domainMappings } = await req.json() as {
 			domainMappings: DomainMapping[]

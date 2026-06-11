@@ -16,6 +16,7 @@ services:
     image: oven/bun:1
     container_name: caddy-syncer
     working_dir: /app
+    env_file: .env
     command: bun run index.ts
     ports:
       - "127.0.0.1:3333:3333"
