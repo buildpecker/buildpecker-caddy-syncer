@@ -1,0 +1,27 @@
+services:
+  caddy-dns:
+    image: caddy:2
+    restart: unless-stopped
+    container_name: caddy-dns
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_dns_data:/data
+      - caddy_dns_config:/config
+    volumes:
+      caddy_dns_data:
+      caddy_dns_config:
+  caddy-syncer:
+    image: oven/bun:1
+    container_name: caddy-syncer
+    working_dir: /app
+    command: bun run src/index.ts
+    ports:
+      - "127.0.0.1:3333:3333"
+    volumes:
+      - ./:/app
+      - ./Caddyfile:./Caddyfile
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: unless-stopped
