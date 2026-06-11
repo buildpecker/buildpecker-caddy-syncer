@@ -10,9 +10,6 @@ services:
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
       - caddy_dns_data:/data
       - caddy_dns_config:/config
-    volumes:
-      caddy_dns_data:
-      caddy_dns_config:
   caddy-syncer:
     image: oven/bun:1
     container_name: caddy-syncer
@@ -25,3 +22,7 @@ services:
       - ./Caddyfile:./Caddyfile
       - /var/run/docker.sock:/var/run/docker.sock
     restart: unless-stopped
+
+volumes:
+  caddy_dns_data:
+  caddy_dns_config:
