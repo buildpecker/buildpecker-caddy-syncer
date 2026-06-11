@@ -10,6 +10,8 @@ services:
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
       - caddy_dns_data:/data
       - caddy_dns_config:/config
+    depends_on:
+      - caddy-syncer
   caddy-syncer:
     image: oven/bun:1
     container_name: caddy-syncer
