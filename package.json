@@ -1,5 +1,5 @@
 {
-  "name": "forge-caddy-syncer",
+  "name": "buildpecker-caddy-syncer",
   "module": "index.ts",
   "type": "module",
   "private": true,

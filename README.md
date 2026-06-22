@@ -1,4 +1,4 @@
-# forge-caddy-syncer
+# buildpecker-caddy-syncer
 
 To install dependencies:
 

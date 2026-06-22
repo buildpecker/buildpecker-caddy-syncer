@@ -3,7 +3,7 @@
   "configVersion": 1,
   "workspaces": {
     "": {
-      "name": "forge-caddy-syncer",
+      "name": "buildpecker-caddy-syncer",
       "devDependencies": {
         "@types/bun": "latest",
       },
