@@ -19,6 +19,9 @@ const domainHandler = async (req: BunRequest) => {
 			`\ton_demand_tls {\n\t\task ${askUrl}\n\t}\n` +
 			`}\n\n`;
 
+		const importBlock =
+			`import manual/*.caddy\n\n`;
+
 		let routes = "";
 		domainMappings.forEach(({ customDomain, generatedDomain }, i) => {
 			routes +=
@@ -37,7 +40,7 @@ const domainHandler = async (req: BunRequest) => {
 			`\thandle {\n\t\tabort\n\t}\n` +
 			`}\n`;
 
-		Bun.write("Caddyfile", globalBlock + siteBlock);
+		Bun.write("Caddyfile", globalBlock + importBlock + siteBlock);
 
 		await fetch("http://docker/containers/caddy-dns/restart", {
 			method: "POST",
